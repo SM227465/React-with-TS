@@ -4,6 +4,8 @@ import goalsImage from './assets/goals.jpg';
 import Header from './components/Header';
 import CourseGoalList from './components/CourseGoalList';
 import NewGoal from './components/NewGoal';
+import 'react-toastify/dist/ReactToastify.css';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 export interface Goal {
   id: number;
@@ -26,17 +28,34 @@ export default function App() {
 
   const handleDeleteGoal = (goalId: number) => {
     setGoals((prevGoals) => prevGoals.filter((goal) => goal.id !== goalId));
+    toast('Goal deleted!');
   };
 
   return (
-    <main>
-      <Header image={{ src: goalsImage, alt: 'A list of goals' }}>
-        <h1>Your Course Goals</h1>
-      </Header>
+    <>
+      <main>
+        <Header image={{ src: goalsImage, alt: 'A list of goals' }}>
+          <h1>Your Course Goals</h1>
+        </Header>
 
-      <NewGoal handleAddGoal={handleAddGoal} />
+        <NewGoal handleAddGoal={handleAddGoal} />
 
-      <CourseGoalList goals={goals} handleDeleteGoal={handleDeleteGoal} />
-    </main>
+        <CourseGoalList goals={goals} handleDeleteGoal={handleDeleteGoal} />
+      </main>
+
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+        transition={Bounce}
+      />
+    </>
   );
 }

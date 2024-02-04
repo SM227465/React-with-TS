@@ -1,4 +1,5 @@
 import { useRef, type FormEvent } from 'react';
+import { toast } from 'react-toastify';
 
 interface Props {
   handleAddGoal: (goal: string, summary: string) => void;
@@ -15,6 +16,10 @@ const NewGoal = (props: Props) => {
 
     const goal = goalRef.current!.value;
     const summary = summaryRef.current!.value;
+
+    if (!goal || !summary) {
+      return toast('Goal and Summary should not be empty!');
+    }
 
     handleAddGoal(goal, summary);
 
